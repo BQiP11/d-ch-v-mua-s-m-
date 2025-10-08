@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NovaWave Commerce</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rubik:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="neon-grid"></div>
+  <header class="site-header">
+    <div class="logo">
+      <span class="logo-icon">⚡</span>
+      <div>
+        <h1>NovaWave</h1>
+        <p>Thương mại điện tử thời đại ảo</p>
+      </div>
+    </div>
+    <nav>
+      <button class="nav-btn" data-view="market">Sản phẩm</button>
+      <button class="nav-btn" data-view="orders">Đơn hàng</button>
+      <button class="nav-btn" data-view="admin" id="admin-nav" hidden>Trung tâm Admin</button>
+    </nav>
+    <div class="auth-actions">
+      <div id="user-pill" class="user-pill" hidden>
+        <span id="user-name"></span>
+        <button id="logout-btn" class="ghost-btn">Đăng xuất</button>
+      </div>
+      <button id="login-btn" class="primary-btn">Đăng nhập</button>
+      <button id="register-btn" class="ghost-btn">Đăng ký</button>
+      <button id="cart-btn" class="cart-btn" data-count="0">
+        <span>Giỏ hàng</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 4h-2l-1 2v2h2l3.6 7.59-1.35 2.44c-.38.68-.09 1.52.59 1.9.21.12.44.17.66.17h10v-2h-9.42l.93-1.68h7.84c.75 0 1.41-.52 1.58-1.24l1.8-8h-16.43l-.72-2zm0 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section id="market" class="view active">
+      <div class="hero">
+        <div class="hero-content">
+          <h2>Trung tâm mua sắm vũ trụ</h2>
+          <p>Đắm chìm trong thế giới sản phẩm công nghệ, thời trang và lối sống với trải nghiệm chuyển động mượt mà như làn sóng ánh sáng.</p>
+          <div class="hero-actions">
+            <button class="primary-btn" data-scroll="featured">Khám phá ngay</button>
+            <button class="ghost-btn" data-scroll="categories">Danh mục nổi bật</button>
+          </div>
+          <div class="live-stats" id="live-stats"></div>
+        </div>
+        <div class="hero-visual">
+          <div class="sphere"></div>
+          <div class="ring"></div>
+          <div class="orbiting-card" id="orbiting-card"></div>
+        </div>
+      </div>
+
+      <section id="categories" class="categories">
+        <h3 class="section-title">Danh mục tương lai</h3>
+        <div class="category-grid" id="category-grid"></div>
+      </section>
+
+      <section id="featured" class="products">
+        <div class="section-heading">
+          <h3 class="section-title">Bộ sưu tập đặc sắc</h3>
+          <div class="filters">
+            <select id="sort-select">
+              <option value="popularity">Phổ biến</option>
+              <option value="price-asc">Giá tăng dần</option>
+              <option value="price-desc">Giá giảm dần</option>
+              <option value="newest">Mới nhất</option>
+            </select>
+            <input type="search" id="search-input" placeholder="Tìm kiếm sản phẩm..." />
+          </div>
+        </div>
+        <div class="product-grid" id="product-grid"></div>
+      </section>
+    </section>
+
+    <section id="orders" class="view">
+      <div class="orders-wrapper">
+        <h3 class="section-title">Lịch sử giao dịch</h3>
+        <div id="order-timeline" class="order-timeline"></div>
+      </div>
+    </section>
+
+    <section id="admin" class="view">
+      <div class="admin-panel">
+        <div class="admin-header">
+          <h3>Điều khiển NovaWave</h3>
+          <p>Quản trị viên có thể chỉnh sửa, thêm bớt chức năng trực tiếp trên giao diện.</p>
+        </div>
+        <div class="admin-grid">
+          <div class="admin-card">
+            <h4>Quản lý sản phẩm</h4>
+            <form id="product-form" class="stack">
+              <input type="hidden" id="product-id" />
+              <label>Tên sản phẩm
+                <input type="text" id="product-name" required />
+              </label>
+              <label>Danh mục
+                <input type="text" id="product-category" required />
+              </label>
+              <label>Giá (VND)
+                <input type="number" id="product-price" min="0" step="1000" required />
+              </label>
+              <label>Điểm nổi bật
+                <textarea id="product-description" rows="3" required></textarea>
+              </label>
+              <label>Hình ảnh (URL)
+                <input type="url" id="product-image" placeholder="https://..." required />
+              </label>
+              <div class="form-actions">
+                <button type="submit" class="primary-btn">Lưu sản phẩm</button>
+                <button type="button" id="reset-product" class="ghost-btn">Làm mới</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="admin-card">
+            <h4>Điều chỉnh trải nghiệm</h4>
+            <div class="toggles" id="feature-toggles"></div>
+          </div>
+
+          <div class="admin-card">
+            <h4>Thanh toán & liên kết</h4>
+            <form id="payment-form" class="stack">
+              <label>Trạng thái hệ thống thanh toán
+                <select id="payment-status">
+                  <option value="online">Đang hoạt động</option>
+                  <option value="maintenance">Bảo trì</option>
+                </select>
+              </label>
+              <label>Tin nhắn nổi bật
+                <input type="text" id="payment-announcement" placeholder="Ví dụ: Giảm 10% cho thanh toán PayPal" />
+              </label>
+              <button type="submit" class="primary-btn">Cập nhật</button>
+            </form>
+            <div id="payment-integration" class="payment-integration"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="cart-drawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3>Giỏ hàng NovaWave</h3>
+      <button id="close-cart" class="ghost-btn">Đóng</button>
+    </div>
+    <div id="cart-items" class="cart-items"></div>
+    <div class="cart-summary">
+      <div class="summary-line">
+        <span>Tạm tính</span>
+        <strong id="cart-subtotal">0₫</strong>
+      </div>
+      <div class="summary-line">
+        <span>Phí vận chuyển</span>
+        <strong id="cart-shipping">Miễn phí</strong>
+      </div>
+      <div class="summary-line total">
+        <span>Tổng cộng</span>
+        <strong id="cart-total">0₫</strong>
+      </div>
+      <div class="payment-options">
+        <h4>Phương thức thanh toán</h4>
+        <div class="payment-grid">
+          <label><input type="radio" name="payment-method" value="PayPal" checked /> PayPal</label>
+          <label><input type="radio" name="payment-method" value="Visa" /> Visa / Mastercard</label>
+          <label><input type="radio" name="payment-method" value="Chuyển khoản" /> Chuyển khoản ngân hàng</label>
+          <label><input type="radio" name="payment-method" value="Tiền mặt" /> Tiền mặt khi nhận hàng</label>
+        </div>
+      </div>
+      <button id="checkout-btn" class="primary-btn">Thanh toán</button>
+      <p class="security-note">Mọi dữ liệu được mã hóa và lưu trữ cục bộ trong thiết bị của bạn.</p>
+    </div>
+  </div>
+
+  <dialog id="auth-modal" class="auth-modal">
+    <form method="dialog" class="auth-shell" id="auth-form">
+      <header>
+        <h3 id="auth-title">Đăng nhập</h3>
+        <button value="cancel" class="ghost-btn">✕</button>
+      </header>
+      <div class="stack">
+        <label>Email
+          <input type="email" id="auth-email" required />
+        </label>
+        <label>Mật khẩu
+          <input type="password" id="auth-password" required />
+        </label>
+        <div id="register-only" class="register-only">
+          <label>Họ và tên
+            <input type="text" id="auth-name" />
+          </label>
+          <label>Mã quyền Admin (tùy chọn)
+            <input type="text" id="auth-admin-key" placeholder="Nhập NEBULA để đăng ký admin" />
+          </label>
+        </div>
+      </div>
+      <footer>
+        <button type="submit" class="primary-btn" id="auth-submit">Tiếp tục</button>
+      </footer>
+      <p id="auth-message" class="auth-message" role="alert"></p>
+    </form>
+  </dialog>
+
+  <template id="product-card-template">
+    <article class="product-card">
+      <div class="glow"></div>
+      <img class="product-image" alt="" />
+      <div class="product-body">
+        <h4 class="product-title"></h4>
+        <p class="product-description"></p>
+        <div class="product-meta">
+          <span class="product-category"></span>
+          <strong class="product-price"></strong>
+        </div>
+      </div>
+      <div class="product-actions">
+        <button class="ghost-btn edit-btn" hidden>Chỉnh sửa</button>
+        <button class="primary-btn add-cart-btn">Thêm vào giỏ</button>
+      </div>
+    </article>
+  </template>
+
+  <template id="cart-item-template">
+    <div class="cart-item">
+      <div class="item-info">
+        <h4 class="item-title"></h4>
+        <p class="item-meta"></p>
+      </div>
+      <div class="item-controls">
+        <button class="ghost-btn decrease">-</button>
+        <span class="item-quantity"></span>
+        <button class="ghost-btn increase">+</button>
+      </div>
+      <div class="item-price"></div>
+    </div>
+  </template>
+
+  <template id="order-entry-template">
+    <div class="order-entry">
+      <div class="order-header">
+        <h4 class="order-id"></h4>
+        <span class="order-date"></span>
+      </div>
+      <div class="order-body"></div>
+      <div class="order-footer">
+        <span class="order-total"></span>
+        <span class="order-method"></span>
+        <span class="order-status"></span>
+      </div>
+    </div>
+  </template>
+
+  <script src="assets/js/app.js" type="module"></script>
+</body>
+</html>
