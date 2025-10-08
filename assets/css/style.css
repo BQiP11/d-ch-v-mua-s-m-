@@ -764,6 +764,21 @@ textarea:focus {
   color: var(--muted);
 }
 
+codex/create-e-commerce-website-with-advanced-features-aiees3
+.order-customer {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(92, 241, 255, 0.12);
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+
+
+ main
 .order-footer {
   display: flex;
   gap: 1.5rem;
